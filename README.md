@@ -1,2 +1,2 @@
 # TownOfCrew
-AmongUsに役職、設定などを追加するMod
+AmongUsに設定を追加するMod
