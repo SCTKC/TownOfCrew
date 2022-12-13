@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using UnityEngine;
 using InnerNet;
+using AmongUs.GameOptions;
 
 namespace TownOfCrew
 {
@@ -12,11 +13,8 @@ namespace TownOfCrew
         public static Dictionary<byte, SpriteRenderer> MyRendCache = new();
         public static class GameState
         {
-            public static bool IsLobby => AmongUsClient.Instance?.GameState is InnerNetClient.GameStates.Joined && !IsFreePlay;
             public static bool IsGameStart => AmongUsClient.Instance?.IsGameStarted is true;
-            public static bool IsLocalGame => AmongUsClient.Instance?.GameMode is GameModes.LocalGame;
             public static bool IsHost => AmongUsClient.Instance?.AmHost is true;
-            public static bool IsFreePlay => AmongUsClient.Instance?.GameMode is GameModes.FreePlay;
             public static bool IsMeeting => MeetingHud.Instance != null;
             public static bool IsShip => ShipStatus.Instance != null;
             public static bool IsChatOpen => HudManager.Instance?.Chat?.IsOpen is true;
@@ -28,30 +26,7 @@ namespace TownOfCrew
             public static bool IsDead => PlayerControl.LocalPlayer?.Data?.IsDead is true;
             public static bool IsImpostor => PlayerControl.LocalPlayer?.Data?.Role?.IsImpostor is true;
         }
-        public static class Flag
-        {
-            private static List<string> OneTimeList = new();
-            private static List<string> FirstRunList = new();
-            public static void Run(Action action, string type, bool firstrun = false)
-            {
-                if ((OneTimeList.Contains(type)) || (firstrun && !FirstRunList.Contains(type)))
-                {
-                    if (!FirstRunList.Contains(type)) FirstRunList.Add(type);
-                    OneTimeList.Remove(type);
-                    action();
-                }
 
-            }
-            public static void NewFlag(string type)
-            {
-                if (!OneTimeList.Contains(type)) OneTimeList.Add(type);
-            }
-
-            public static void DeleteFlag(string type)
-            {
-                if (OneTimeList.Contains(type)) OneTimeList.Remove(type);
-            }
-        }
         public static void SetPos(this Transform transform, float? x = null, float? y = null, float? z = null)
         {
             var pos = transform.localPosition;
@@ -102,5 +77,15 @@ namespace TownOfCrew
         {
             return (byte)i;
         }
+
+        public static HatParent HatSlot(this PoolablePlayer player)
+        {
+            return player.transform.FindChild("HatSlot").GetComponent<HatParent>();
+        }
+        public static VisorLayer VisorSlot(this PoolablePlayer player)
+        {
+            return player.transform.FindChild("Visor").GetComponent<VisorLayer>();
+        }
+        public static string SetSize(this string text, float size) => $"<size={size}>" + text + "</size>";
     }
 }

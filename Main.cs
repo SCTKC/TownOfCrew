@@ -1,26 +1,28 @@
 ﻿using BepInEx;
+using BepInEx.Logging;
 using BepInEx.IL2CPP;
 using HarmonyLib;
-using AmongUs.Data;
-using UnityEngine;
-using static TownOfCrew.Helpers;
-using static TownOfCrew.Main;
 
 namespace TownOfCrew
 {
-    [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
+    [BepInAutoPlugin("com.sctkc.townofcrew", "TownOfCrew", "1.0.1")]
+    [BepInIncompatibility("com.ykundesu.supernewroles")]
+    [BepInIncompatibility("com.tugaru.TownOfPlus")]
+    [BepInIncompatibility("com.emptybottle.townofhosdt")]
     [BepInProcess("Among Us.exe")]
-    public class Main : BasePlugin
+    public partial class Main : BasePlugin
     {
-        public static BepInEx.Logging.ManualLogSource Logger;
-        public Harmony Harmony { get; } = new Harmony(PluginInfo.PLUGIN_GUID);
+        public Harmony Harmony { get; } = new Harmony("com.sctkc.townofcrew");
 
-        public static Main Instance;
+        public static Main Instance = new();
+
+        public static ManualLogSource logger;
+
         public override void Load()
         {
-            Logger = Log;
+            logger = Log;
 
-            Logger.LogMessage("TownOfCrewをご利用いただきありがとうございます");
+            Logger.Message("TownOfCrewをご利用いただきありがとうございます");
 
             Harmony.PatchAll();
         }
