@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using static TownOfCrew.Main;
+using static TownOfCrew.TownOfCrewPlugin;
 using LogLevel = BepInEx.Logging.LogLevel;
 
 namespace TownOfCrew;

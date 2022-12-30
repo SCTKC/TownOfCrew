@@ -28,8 +28,7 @@ namespace TownOfCrew.Patch.Lobby
             public static void Postfix()
             {
                 if (HostText is null) return;
-                var Host = AmongUsClient.Instance?.GetHost();
-                HostText.text = Host.PlayerName;
+                HostText.text = AmongUsClient.Instance?.GetHost()?.PlayerName;
             }
         }
     }

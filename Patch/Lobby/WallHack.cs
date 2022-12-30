@@ -1,21 +1,20 @@
-﻿using HarmonyLib;
-using UnityEngine;
+﻿using UnityEngine;
+using HarmonyLib;
 
-namespace TownOfCrew.Patch.Lobby
+namespace TownOfCrew.Patch.Lobby;
+[HarmonyPatch(typeof(LobbyBehaviour),nameof(LobbyBehaviour.FixedUpdate))]
+public static class WallHack
 {
-    [HarmonyPatch(typeof(LobbyBehaviour),nameof(LobbyBehaviour.FixedUpdate))]
-    public static class WallHack
+    [HarmonyPostfix]
+    public static void WallHackUpdatePatch()
     {
-        public static void Postfix()
+        if (Input.GetKey(KeyCode.LeftControl))
         {
-            if (Input.GetKey(KeyCode.LeftControl))
-            {
-                PlayerControl.LocalPlayer.Collider.offset = new Vector2(0f,127f);
-            }
-            else
-            {
-                PlayerControl.LocalPlayer.Collider.offset = new Vector2(0f, -0.3636f);
-            }
+            PlayerControl.LocalPlayer.Collider.offset = new(0f, 127f);
+        }
+        else
+        {
+            PlayerControl.LocalPlayer.Collider.offset = new(0f, -0.3636f);
         }
     }
 }
