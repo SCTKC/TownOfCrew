@@ -1,4 +1,4 @@
 # TownOfCrew
 AmongUsに設定を追加するMod
 
-[Discord](https://discord.gg/dtxxF5urXm)
+This mod is not affiliated with Among Us or Innersloth LLC, and the content contained therein is not endorsed or otherwise sponsored by Innersloth LLC. Portions of the materials contained herein are property of Innersloth LLC. © Innersloth LLC.
